@@ -1,14 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
+import AppBar from './src/components/AppBar'
+
 export default function App () {
   return (
     <View style={styles.container}>
-      <View style={styles.appBar}>
-        <View style={styles.appBarInner}>
-          <Text style={styles.appBarTitle}>シッタゲキレイ</Text>
-        </View>
-      </View>
+
+      <AppBar />
 
       <View>
         <View style={styles.announceContent}>
