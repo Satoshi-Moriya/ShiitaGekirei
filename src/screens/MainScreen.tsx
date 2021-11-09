@@ -1,9 +1,26 @@
-import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet, Text, Switch } from 'react-native'
+import * as Notifications from 'expo-notifications'
 
 import AppBar from '../components/AppBar'
 
 export default function MainScreen () {
+  const announceText: string = 'いいから\nコードを書け！！'
+  const [isEnabled, setIsEnabled] = useState(false)
+  const onOffText: string = isEnabled ? '有効' : '無効'
+  console.log('toggle test')
+
+  const toggleIsEnabled = () => {
+    setIsEnabled(!isEnabled)
+  }
+
+  // on off ボタン
+  if (isEnabled) {
+    scheduleNotificationAsync(announceText)
+  } else {
+    Notifications.cancelAllScheduledNotificationsAsync()
+  }
+
   return (
     <View style={styles.container}>
 
@@ -11,11 +28,14 @@ export default function MainScreen () {
 
       <View>
         <View style={styles.announceContent}>
-          <Text style={styles.announceText}>いいから{'\n'}コードを書け！！</Text>
+          <Text style={styles.announceText}>{announceText}</Text>
         </View>
         <View style={styles.onOffContent}>
-          <Text style={styles.onOffBtn}>ボタン</Text>
-          <Text style={styles.onOffText}>無効</Text>
+          <Switch
+            onValueChange={toggleIsEnabled}
+            value={isEnabled}
+          />
+          <Text style={styles.onOffText}>{onOffText}</Text>
         </View>
         <View style={styles.noteContent}>
           <Text style={styles.noteText}>朝・昼・晩{'\n'}お知らせ！！</Text>
@@ -23,6 +43,27 @@ export default function MainScreen () {
       </View>
     </View>
   )
+}
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false
+  })
+})
+
+const scheduleNotificationAsync = async (announceText: string) => {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: 'シッタゲキレイ',
+      body: announceText
+    },
+    trigger: {
+      repeats: true,
+      seconds: 60
+    }
+  })
 }
 
 const styles = StyleSheet.create({
