@@ -1,17 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, Text, Switch } from 'react-native'
 import * as Notifications from 'expo-notifications'
 
 import AppBar from '../components/AppBar'
+import { storage } from '../Storage'
 
 export default function MainScreen () {
-  const announceText: string = 'いいから\nコードを書け！！'
+  const announceText: string = 'ぐだぐだ\n言ってないで\nコードを\n書きなさい！！'
   const [isEnabled, setIsEnabled] = useState(false)
   const onOffText: string = isEnabled ? '有効' : '無効'
-  console.log('toggle test')
+
+  useEffect(() => {
+    storage.load({
+      key: 'isEnabled'
+    }).then(data => {
+      setIsEnabled(data)
+    }).catch(err => {
+      setIsEnabled(false)
+      console.log(err)
+    })
+  }, [])
 
   const toggleIsEnabled = () => {
     setIsEnabled(!isEnabled)
+    storage.save({
+      key: 'isEnabled',
+      data: !isEnabled
+    })
+    storage.load({
+      key: 'isEnabled'
+    }).then(data => {
+      setIsEnabled(data)
+    }).catch(err => {
+      setIsEnabled(false)
+      console.log(err)
+    })
   }
 
   // on off ボタン
