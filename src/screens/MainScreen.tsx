@@ -27,14 +27,6 @@ export default function MainScreen () {
       key: 'isEnabled',
       data: !isEnabled
     })
-    storage.load({
-      key: 'isEnabled'
-    }).then(data => {
-      setIsEnabled(data)
-    }).catch(err => {
-      setIsEnabled(false)
-      console.log(err)
-    })
   }
 
   // on off ボタン
