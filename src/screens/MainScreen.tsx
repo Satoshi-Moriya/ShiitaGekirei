@@ -6,7 +6,7 @@ import AppBar from '../components/AppBar'
 import { storage } from '../Storage'
 
 export default function MainScreen () {
-  const announceText: string = 'ぐだぐだ\n言ってないで\nコードを\n書きなさい！！'
+  const announceText: string = 'ぐだぐだ言ってないで\nコードを書きなさい！'
   const [isEnabled, setIsEnabled] = useState(false)
   const onOffText: string = isEnabled ? '有効' : '無効'
 
@@ -41,7 +41,7 @@ export default function MainScreen () {
 
       <AppBar />
 
-      <View>
+      <View style={styles.mainContent}>
         <View style={styles.announceContent}>
           <Text style={styles.announceText}>{announceText}</Text>
         </View>
@@ -51,9 +51,6 @@ export default function MainScreen () {
             value={isEnabled}
           />
           <Text style={styles.onOffText}>{onOffText}</Text>
-        </View>
-        <View style={styles.noteContent}>
-          <Text style={styles.noteText}>朝・昼・晩{'\n'}お知らせ！！</Text>
         </View>
       </View>
     </View>
@@ -102,8 +99,11 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: 'bold'
   },
+  mainContent: {
+    flex: 1,
+    justifyContent: 'center'
+  },
   announceContent: {
-    marginTop: 42,
     alignItems: 'center'
   },
   announceText: {
@@ -121,17 +121,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontSize: 24,
     lineHeight: 36,
-    color: '#555555'
-  },
-  noteContent: {
-    marginTop: 32,
-    alignItems: 'center'
-  },
-  noteText: {
-    textAlign: 'center',
-    fontSize: 24,
-    lineHeight: 36,
-    fontWeight: 'bold',
     color: '#555555'
   }
 })
