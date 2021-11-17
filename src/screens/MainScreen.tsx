@@ -69,7 +69,8 @@ const scheduleNotificationAsync = async (announceText: string) => {
   await Notifications.scheduleNotificationAsync({
     content: {
       title: 'シッタゲキレイ',
-      body: announceText
+      body: announceText,
+      sound: 'default'
     },
     trigger: {
       seconds: 60 * 60,
