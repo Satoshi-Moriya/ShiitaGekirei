@@ -6,7 +6,7 @@ import AppBar from '../components/AppBar'
 import { storage } from '../Storage'
 
 export default function MainScreen () {
-  const announceText: string = 'ぐだぐだ言ってないで\nコードを書きなさい！'
+  const announceText: string = 'いいから\nコードを書け！！'
   const [isEnabled, setIsEnabled] = useState(false)
   const onOffText: string = isEnabled ? '有効' : '無効'
 
@@ -72,8 +72,8 @@ const scheduleNotificationAsync = async (announceText: string) => {
       body: announceText
     },
     trigger: {
-      repeats: true,
-      seconds: 60
+      seconds: 60 * 60,
+      repeats: true
     }
   })
 }
